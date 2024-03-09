@@ -6,7 +6,7 @@ import TeamOverview from '../TeamOverview';
 jest.mock('react-router-dom', () => ({
     useLocation: () => ({
         state: {
-            teamName: 'Some Team',
+            name: 'Some Team',
         },
     }),
     useNavigate: () => ({}),
@@ -36,14 +36,14 @@ describe('TeamOverview', () => {
         };
         const userData = {
             id: '2',
-            firstName: 'userData',
-            lastName: 'userData',
+            firstName: 'userFirstName',
+            lastName: 'userLastName',
             displayName: 'userData',
             location: '',
             avatar: '',
         };
-        jest.spyOn(API, 'getTeamOverview').mockImplementationOnce(() => Promise.resolve({} as any));
-        jest.spyOn(API, 'getUserData').mockImplementationOnce(() => Promise.resolve({} as any));
+        jest.spyOn(API, 'getTeamOverview').mockImplementationOnce(() => Promise.resolve(teamOverview));
+        jest.spyOn(API, 'getUserData').mockImplementation(() => Promise.resolve(userData));
 
         render(<TeamOverview />);
 
