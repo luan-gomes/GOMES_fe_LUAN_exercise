@@ -1,4 +1,4 @@
-import {ListItem, Team} from 'types';
+import {ListItem, Team, UserData} from 'types';
 
 export const convertTeamListToListItems = (teams: Team[]) => {
   return teams.map(team => {
@@ -15,4 +15,29 @@ export const convertTeamListToListItems = (teams: Team[]) => {
       };
       return listItem;
   });
+};
+
+export const convertUsersDataToListItems = (users: UserData[]) => {
+    return users.map(user => {
+        const listItem: ListItem = {
+            id: user.id,
+            url: `/user/${user.id}`,
+            columns: [
+                {
+                    key: 'Name',
+                    value: `${user.firstName} ${user.lastName}`,
+                },
+                {
+                    key: 'Display Name',
+                    value: user.displayName,
+                },
+                {
+                    key: 'Location',
+                    value: user.location,
+                },
+            ],
+            navigationProps: user,
+        };
+        return listItem;
+    });
 };
