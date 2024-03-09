@@ -31,6 +31,7 @@ const renderTeamLeadCard = (teamLead: UserData) => {
 };
 
 interface PageState {
+    teamName?: string;
     teamLead?: UserData;
     teamMembers?: UserData[];
 }
@@ -43,7 +44,7 @@ const TeamOverview = () => {
 
     React.useEffect(() => {
         const getTeamUsers = async () => {
-            const {teamLeadId, teamMemberIds = []} = await getTeamOverview(teamId);
+            const {teamLeadId, teamMemberIds = [], name: teamName} = await getTeamOverview(teamId);
             const teamLead = await getUserData(teamLeadId);
 
             const teamMembers = [];
@@ -54,6 +55,7 @@ const TeamOverview = () => {
             setPageData({
                 teamLead,
                 teamMembers,
+                teamName,
             });
             setIsLoading(false);
         };
@@ -62,7 +64,7 @@ const TeamOverview = () => {
 
     return (
         <Container>
-            <Header title={`Team ${location.state.name}`} />
+            <Header title={`Team ${location.state?.name ?? pageData?.teamName ?? ''}`} />
             {!isLoading && renderTeamLeadCard(pageData.teamLead)}
             <List items={convertUsersDataToListItems(pageData?.teamMembers ?? [])} isLoading={isLoading} />
         </Container>

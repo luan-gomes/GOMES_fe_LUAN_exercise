@@ -31,6 +31,7 @@ describe('TeamOverview', () => {
     it('should render team overview users', async () => {
         const teamOverview = {
             id: '1',
+            name: 'Some Team',
             teamLeadId: '2',
             teamMemberIds: ['3', '4', '5'],
         };
