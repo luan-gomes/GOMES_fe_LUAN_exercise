@@ -5,6 +5,7 @@ import UserOverview from '../UserOverview';
 jest.mock('react-router-dom', () => ({
     useLocation: () => ({
         state: {
+            id: '1',
             firstName: 'Test',
             lastName: 'User',
             displayName: 'userName',
@@ -12,6 +13,9 @@ jest.mock('react-router-dom', () => ({
         },
     }),
     useNavigate: () => ({}),
+    useParams: () => ({
+        id: '1',
+    }),
 }));
 
 describe('UserOverview', () => {
