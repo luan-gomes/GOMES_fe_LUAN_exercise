@@ -1,11 +1,11 @@
 import * as React from 'react';
-import {ListItem, Teams as TeamsList} from 'types';
+import {ListItem, Team} from 'types';
 import {getTeams as fetchTeams} from '../api';
 import Header from '../components/Header';
 import List from '../components/List';
 import {Container} from '../components/GlobalComponents';
 
-var MapT = (teams: TeamsList[]) => {
+var MapT = (teams: Team[]) => {
     return teams.map(team => {
         var columns = [
             {
