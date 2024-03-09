@@ -23,8 +23,8 @@ var MapT = (teams: Team[]) => {
 };
 
 const Teams = () => {
-    const [teams, setTeams] = React.useState<any>([]);
-    const [isLoading, setIsLoading] = React.useState<any>(true);
+    const [teams, setTeams] = React.useState<Team[]>([]);
+    const [isLoading, setIsLoading] = React.useState<boolean>(true);
 
     React.useEffect(() => {
         const getTeams = async () => {
