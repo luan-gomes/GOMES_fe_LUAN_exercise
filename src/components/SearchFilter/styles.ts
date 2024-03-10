@@ -9,5 +9,6 @@ export const InputLabel = styled.label`
 
 export const TextInput = styled.input`
     padding: 7px;
-    border: 1px solid black;
+    border: 1px solid ${(props) => props.theme.blue};
+    border-radius: 15px;
 `;
