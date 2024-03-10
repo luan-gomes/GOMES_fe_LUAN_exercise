@@ -1,23 +1,25 @@
 import * as React from 'react';
-import {useLocation} from 'react-router-dom';
+import {useLocation, useParams} from 'react-router-dom';
 import {UserData} from 'types';
+import {getUserData} from 'api';
+import {Spinner} from 'components/Spinner';
 import Card from '../components/Card';
 import {Container} from '../components/GlobalComponents';
 import Header from '../components/Header';
 
-var mapU = (user: UserData) => {
-    var columns = [
+const renderUserCard = (user?: UserData) => {
+    const columns = [
         {
             key: 'Name',
-            value: `${user.firstName} ${user.lastName}`,
+            value: `${user?.firstName} ${user?.lastName}`,
         },
         {
             key: 'Display Name',
-            value: user.displayName,
+            value: user?.displayName,
         },
         {
             key: 'Location',
-            value: user.location,
+            value: user?.location,
         },
     ];
     return <Card columns={columns} hasNavigation={false} navigationProps={user} />;
@@ -25,12 +27,29 @@ var mapU = (user: UserData) => {
 
 const UserOverview = () => {
     const location = useLocation();
+    const {userId} = useParams();
+    const [user, setUser] = React.useState<UserData | undefined>(location.state);
+    const [isLoading, setIsLoading] = React.useState<boolean>(!location.state);
+
+    React.useEffect(() => {
+        const getUser = async () => {
+            if (!location.state) {
+                const userData = await getUserData(userId);
+                setUser(userData);
+                setIsLoading(false);
+            }
+        };
+        getUser();
+    }, [location.state, userId]);
+
+
     return (
         <Container>
             <Header
-                title={`User ${location.state.firstName} ${location.state.lastName}`}
+                title={`User ${user ? `${user?.firstName} ${user?.lastName}` : ''}`}
             />
-            {mapU(location.state)}
+            {isLoading && <Spinner />}
+            {!isLoading && renderUserCard(user)}
         </Container>
     );
 };

@@ -1,10 +1,11 @@
-export interface Teams {
+export interface Team {
     id: string;
     name: string;
 }
 
 export interface TeamOverview {
     id: string;
+    name: string;
     teamLeadId: string;
     teamMemberIds: string[];
 }
@@ -27,5 +28,5 @@ export interface ListItem {
     id: string;
     url?: string;
     columns: Array<ListItemColumn>;
-    navigationProps?: UserData | Teams;
+    navigationProps?: UserData | Team;
 }
